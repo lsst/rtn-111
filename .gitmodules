@@ -2,3 +2,6 @@
 	url = https://github.com/lsst/lsst-texmf.git
 	path = lsst-texmf
 	branch = refs/heads/main
+[submodule "operations_milestones"]
+	path = operations_milestones
+	url = https://github.com/womullan/operations_milestones

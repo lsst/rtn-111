@@ -49,3 +49,24 @@ meta.tex: Makefile .FORCE
 	printf '\\newcommand{\\lsstDocNum}{$(DOCNUMBER)}\n' >>$@
 	printf '\\newcommand{\\vcsRevision}{$(GITVERSION)$(GITDIRTY)}\n' >>$@
 	printf '\\newcommand{\\vcsDate}{$(GITDATE)}\n' >>$@
+
+# milestones from Jira and Gantt
+openMilestones.tex:  
+	( \
+	. operations_milestones/venv/bin/activate; \
+	python operations_milestones/opsMiles.py -ls -q " and labels=DP2 "  -u ${JIRA_USER} -p ${JIRA_PASSWORD}; \
+	)	
+	
+
+DP2.pdf: DP2.tex
+	pdflatex DP2.tex
+
+DP2.tex:  
+	( \
+	. operations_milestones/venv/bin/activate; \
+	python operations_milestones/opsMiles.py -g -f "DP2.tex" -q "labels=DP2 and type != story and type != RFC"  -u ${JIRA_USER} -p ${JIRA_PASSWORD}; \
+	)
+
+install_deps:
+	python -m pip install -r operations_milestones/requirements.txt
+
