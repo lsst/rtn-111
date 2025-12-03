@@ -54,7 +54,7 @@ meta.tex: Makefile .FORCE
 openMilestones.tex:  
 	( \
 	. operations_milestones/venv/bin/activate; \
-	python operations_milestones/opsMiles.py -ls -q " and labels=DP1 "  -u ${JIRA_USER} -p ${JIRA_PASSWORD}; \
+	python operations_milestones/opsMiles.py -ls -q " and labels=DP2 "  -u ${JIRA_USER} -p ${JIRA_PASSWORD}; \
 	)	
 	
 
