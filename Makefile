@@ -64,7 +64,7 @@ DP2.pdf: DP2.tex
 DP2.tex:  
 	( \
 	. operations_milestones/venv/bin/activate; \
-	python operations_milestones/opsMiles.py -g -f "DP2.tex" -q "labels=DP2 and type != story and type != RFC"  -u ${JIRA_USER} -p ${JIRA_PASSWORD}; \
+	python operations_milestones/opsMiles.py -g -f "DP2.tex" -q "labels=DP2 and type != story and type != RFC and type != verification"  -u ${JIRA_USER} -p ${JIRA_PASSWORD}; \
 	)
 
 install_deps:
