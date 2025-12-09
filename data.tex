@@ -1,0 +1,56 @@
+\section{Dataset Definition}
+\label{sec:dataset}
+
+Data Preview~2 (DP2) will include LSSTCam observations acquired between 20 April 2025 and 21 September 2025.
+It will also include any observations taken between 20 October 2025 and 1 January 2026 that overlap the Science Validation regions.
+Within this temporal range, all visits labeled as science observations will be included.
+Engineering data, out-of-focus sequences acquired for active optics commissioning, and stray-light scans will not be included.
+Figure~\ref{fig:dp2-footprint} shows the resulting sky footprint.
+
+The data products produced for DP2 will follow the categories defined in Table~6 of RTN-011.
+These include calibrated and coadded image products, associated catalogs, and the corresponding calibration products.
+A complete enumeration of DP2 data products will be provided later in this document.
+
+No quality criteria will be applied to determine whether a visit is included in DP2.
+However, quality criteria will instead determine whether a visit contributes to the coadds.
+Visits will be included in the coadds only if the visit-level median PSF FWHM  is better than 1.7 arcseconds,  if each detector has a FWHM better than 1.8 arcseconds and a transparency of at least 0.75.
+Out-of-focus data will naturally be excluded from the coadds because the pipelines fail to model the PSFs of donut images.
+
+\subsection{Visit-level and Detector-level exclusions}
+The eight heavily vignetted corner detectors  (0, 20, 27, 65, 123, 161, 168, 188) will be excluded.
+Detectors 172, 24,  120, 121 will be excluded for data taken before 3 July 2025 because the data to calibrate them does not exist.
+
+Table~\ref{tab:dp2-exclusions} summarizes the visit-level exclusions:
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{figures/DP2-footprint.png}
+\caption{Sky footprint of the DP2 dataset. Coadds will include the ecliptic stripe and deep drilling fields.}
+\label{fig:dp2-footprint}
+\end{figure}
+
+\begin{table}
+\centering
+\caption{Summary of visit-level exclusions.}
+\label{tab:dp2-exclusions}
+
+\begin{tabular}{l p{7.5cm}}
+\hline
+The ``acq'' visits taken as tests to check hardware & \\
+Visits taken before day\_obs 20250424 & \\
+Visits taken without a filter (u, g, r, i, z, y) & \\
+Stray light scans & BLOCK-T516, BLOCK-T519, BLOCK-T540 \\
+Pinhole images & BLOCK-T491 \\
+AOS Empirical Sensitivity Performance Validation & BLOCK-T545 \\
+M1M3 Thermal Step Test & BLOCK-T609 \\
+\texttt{all\_sky\_aos\_test} & Donut-shaped initial AOS test, mostly in $y$-band, taken in June. \\
+Bad visits in \href{https://github.com/lsst-dm/excluded_visits/blob/main/LSSTCam/bad.ecsv}{excluded\_visits} list & Visually flagged errors, typically out-of-focus images or exposures affected by mount or hexapod motion. \\
+\hline
+\end{tabular}
+
+\end{table}
+
+\subsection{Data taken after Oct 2025}
+Data taken after Oct 2025 may be included pending the generation of suitable calibration frames for that epoch before processing starts.
+If suitable calibration frames are made before processing, intent is to include data that covers the region in Figure~\ref{fig:dp2-footprint} in DP2.
+Inclusion of single-frame data products (Visit Images and Sources) for all other ``science'' visits (BLOCK-407, BLOCK-408, BLOCK-416)  which are unsuitable for coadds may also be considered.

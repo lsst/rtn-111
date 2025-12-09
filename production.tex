@@ -1,0 +1,69 @@
+\section{Data Production}
+\label{sec:production}
+
+DP2 processing will be based on Version~30 of the LSST Science Pipelines.
+A minor release will be created at the start of each processing stage.
+Backports required for a given stage must be submitted two weeks prior to the start of that stage to allow time for validation.
+A two-week pilot run for each stage will be executed at the IN2P3 Data Facility.
+
+DP2 production will follow the four-stage structure used for data release processing.
+Stage~1 consists of single-visit processing.
+Stage~2 consists of recalibration and will include FGCM for photometric calibration, GBDES for astrometry, Gaussian-process modeling of atmospheric turbulence, proper motion and parallax fitting, and PSF re-estimation using a standard star set.
+Stage~3 consists of coaddition and measurement on coadds, including the generation of object tables.
+Stage~4 consists of difference-image analysis, DIA Source and DIA Object generation, Solar System object processing, and the generation of light curves via the forced-source tables.
+
+DP2 production will be divided between the US Data Facility (USDF) at SLAC and the French data facility at IN2P3.
+Workload distribution is expected to be approximately equal between USDF and IN2P3.
+Figure~\ref{fig:dp2-workflow} illustrates the planned distribution of processing activities across the data facilities.
+Each stage of processing will include continuous monitoring of data quality and the relevant verification and validation metrics.
+A full verification and validation review is required at the end of each stage before processing may advance to the next stage.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.99\textwidth]{figures/workflow.png}
+\caption{Planned timing and distribution of DP2 processing work across SLAC and IN2P3.}
+\label{fig:dp2-workflow}
+\end{figure}
+
+
+The Data Production division of Data Management is responsible for generating the data products that comprise DP2, after which the dataset will be transferred to the Data Services division for user-facing delivery. Data Production includes the Science Pipelines, Campaign Management, and Verification and Validation teams.
+
+The Science Pipelines team is responsible for the development and configuration of the software used in DP2 processing.
+The Campaign Management team is responsible for planning and executing the production, managing workflow execution across facilities, and verifying completeness.
+The Verification and Validation team is responsible for monitoring data quality throughout production and for signing off on the final data products at each stage.
+
+A Data Release Steering Committee will coordinate decision-making across these groups.
+The committee will include one representative from each team and will approve decisions that span their shared responsibilities, including the resolution of quality issues, the incorporation of backports, the need for partial or full reprocessing, and other production decisions that do not require escalation to the project-level Data Release Board.
+
+
+\subsection{Data Production Timeline}
+
+For reference by the Data Production division,
+these are the internal milestones for DP2 Production as of early December 2025.
+These are not user-facing delivery dates.
+The user facing delivery date for DP2 is July-Sept 2026.
+
+\begin{itemize}
+
+\item 2025-12-03: Feature freeze for the DP2 processing software.
+All new functionality must be merged by this date.
+Subsequent changes are limited to approved backports.
+
+\item 2026-01-02: Final full pilot run begins.
+This pilot run will exercise the complete processing configuration and will be used to validate readiness for production.
+
+\item 2026-01-16: Final pre-run pilot is delivered to Data Services with a shepherd.
+This delivery is used to validate data access patterns, service interfaces, and end-to-end compatibility.
+Stage~1 processing of DP2 begins.
+
+\item 2026-01-31: Stage~2 processing of DP2 begins.
+
+\item 2026-02-15: Stage~3 processing of DP2 begins.
+
+\item 2026-03-17: Stage~4 processing of DP2 begins. Templates required for DIA will be available by this date.
+
+\item 2026-04-16: Final DP2 data products are delivered to Data Services with a shepherd for integration into user-facing services.
+
+\end{itemize}
+
+A member of the Pipelines team will serve as the shepherd traveling with the data products (the sheep) delivered to Data Services.
