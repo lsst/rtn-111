@@ -20,7 +20,10 @@ Out-of-focus data will naturally be excluded from the coadds because the pipelin
 The eight heavily vignetted corner detectors  (0, 20, 27, 65, 123, 161, 168, 188) will be excluded.
 Detectors 172, 24,  120, 121 will be excluded for data taken before 3 July 2025 because the data to calibrate them does not exist.
 
-Table~\ref{tab:dp2-exclusions} summarizes the visit-level exclusions:
+Only visits labeled ``science'' will be included.
+Exposures labeled ``acq'', ``engtest'', and ``cwfs'' will not be included.
+These images were taken to test hardware and are often intentionally out of focus.
+Table~\ref{tab:dp2-exclusions} summarizes the additional visit-level exclusions:
 
 \begin{figure}
 \centering
@@ -34,20 +37,120 @@ Table~\ref{tab:dp2-exclusions} summarizes the visit-level exclusions:
 \caption{Summary of visit-level exclusions.}
 \label{tab:dp2-exclusions}
 
-\begin{tabular}{l p{7.5cm}}
+\begin{tabular}{p{8.5cm} r p{5.5cm}}
 \hline
-The ``acq'' visits taken as tests to check hardware & \\
-Visits taken before day\_obs 20250424 & \\
-Visits taken without a filter (u, g, r, i, z, y) & \\
-Stray light scans & BLOCK-T516, BLOCK-T519, BLOCK-T540 \\
-Pinhole images & BLOCK-T491 \\
-AOS Empirical Sensitivity Performance Validation & BLOCK-T545 \\
-M1M3 Thermal Step Test & BLOCK-T609 \\
-\texttt{all\_sky\_aos\_test} & Donut-shaped initial AOS test, mostly in $y$-band, taken in June. \\
-Bad visits in \href{https://github.com/lsst-dm/excluded_visits/blob/main/LSSTCam/bad.ecsv}{excluded\_visits} list & Visually flagged errors, typically out-of-focus images or exposures affected by mount or hexapod motion. \\
+\textbf{Excluded visits} &  \textbf{N visits} & \textbf{details} \\
+\hline
+Visits taken before day\_obs 20250424 & 556 & \\
+Visits taken without a filter (u, g, r, i, z, y) & 1 & \\
+Stray light scans & 305 & BLOCK-T516, BLOCK-T519, BLOCK-T540  \\
+Pinhole images & 1 & BLOCK-T491 \\
+AOS Empirical Sensitivity Performance & 2 & BLOCK-T545  \\
+M1M3 Thermal Step Test & 581 & BLOCK-T609  \\
+\texttt{all\_sky\_aos\_test} & 772 & Initial AOS survey test, mostly in $y$-band, taken in June.\\
+vignette in (FULLY, PARTIALLY, UNKNOWN) & 67 & \\
+Bad visits in \href{https://github.com/lsst-dm/excluded_visits/blob/main/LSSTCam/bad.ecsv}{excluded\_visits} list
+    & 391 & Visually flagged errors, typically out-of-focus images or exposures affected by mount or hexapod motion.\\
+
 \hline
 \end{tabular}
+\end{table}
 
+Filtering on the above criteria results in a total of 21,067 visits, split into the fields and
+bands shown in Table~\ref{tab:total-visits-by-band}.
+Not all of these meet the quality criteria for inclusion in the deep coadds: eff\_time\_zero\_point\_scale\_median > 0.75 and
+per visit PSF FWHM < 1.7 arcseconds.
+The 15,610 visits that do meet these criteria are broken out in Table~\ref{tab:coadd-visits-by-band}.
+\begin{table}[ht]
+\centering
+\small
+\caption{Total visits by target and band}
+\label{tab:total-visits-by-band}
+\renewcommand{\arraystretch}{1.1}
+
+\begin{tabularx}{\textwidth}{%
+    l
+    *{6}{>{\raggedleft\arraybackslash}X}
+}
+\hline
+\textbf{Target} & \textbf{u} & \textbf{g} & \textbf{r} &
+\textbf{i} & \textbf{z} & \textbf{y} \\
+\hline
+lowdust, bulgy or dusty\_plane          & 709 & 1313 & 2550 & 3130 & 2768 & 2147 \\
+COSMOS                                  & 100 & 82 & 166 & 139 & 110 & 66 \\
+DDF ECDFS                               & 0 & 36 & 39 & 41 & 43 & 0 \\
+DDF EDFS\_a                             & 0 & 19 & 21 & 28 & 18 & 0 \\
+DDF EDFS\_b                             & 0 & 23 & 20 & 29 & 17 & 0 \\
+DDF ELAISS1                             & 39 & 101 & 102 & 163 & 112 & 16 \\
+ELAIS\_S1                               & 11 & 30 & 30 & 30 & 35 & 30 \\
+M49                                     & 237 & 280 & 378 & 214 & 0 & 0 \\
+New\_Horizons                           & 36 & 48 & 70 & 108 & 74 & 23 \\
+Prawn                                   & 196 & 164 & 142 & 93 & 30 & 0 \\
+Rubin\_SV\_212\_-7                      & 0 & 139 & 236 & 123 & 0 & 0 \\
+Rubin\_SV\_216\_-17                     & 0 & 28 & 30 & 63 & 0 & 0 \\
+Rubin\_SV\_225\_-40                     & 312 & 568 & 441 & 381 & 240 & 104 \\
+Rubin\_SV\_280\_-48                     & 30 & 30 & 29 & 30 & 29 & 0 \\
+Rubin\_SV\_300\_-41                     & 0 & 8 & 0 & 0 & 30 & 0 \\
+Rubin\_SV\_320\_-15                     & 0 & 29 & 17 & 105 & 52 & 70 \\
+ToO\_3I\_i0                             & 0 & 16 & 14 & 14 & 7 & 0 \\
+ToO\_BBH\_i0                            & 18 & 0 & 18 & 26 & 0 & 0 \\
+ToO\_SSO\_i0                            & 0 & 16 & 16 & 16 & 12 & 16 \\
+Trifid--Lagoon                          & 235 & 196 & 122 & 115 & 0 & 0 \\
+nes                                     & 6 & 42 & 175 & 168 & 209 & 39 \\
+\hline
+\textit{Insufficient visits to coadd} & & & & & & \\
+\hline
+Abell\_2764                             & 0 & 7 & 0 & 0 & 0 & 0 \\
+DDF XMM\_LSS                            & 30 & 0 & 0 & 0 & 0 & 0 \\
+DESI\_SV3\_R1                           & 0 & 0 & 0 & 4 & 0 & 0 \\
+\hline
+\end{tabularx}
+\end{table}
+
+
+
+\begin{table}[ht]
+\centering
+\caption{Deep coadd quality visit counts by target and band}
+\label{tab:coadd-visits-by-band}
+\renewcommand{\arraystretch}{1.1}
+
+\begin{tabularx}{\textwidth}{%
+    l % target name as natural-width left column
+    *{6}{>{\raggedleft\arraybackslash}X} % six ragged-left numeric columns
+}
+\hline
+\textbf{Target} & \textbf{u} & \textbf{g} & \textbf{r} &
+\textbf{i} & \textbf{z} & \textbf{y} \\
+\hline
+lowdust, bulgy or dusty\_plane  & 531 & 913 & 1662 & 2182 & 2108 & 1818 \\
+COSMOS                          & 56 & 71 & 124 & 98 & 83 & 51 \\
+DDF ECDFS                       & 0 & 10 & 27 & 30 & 25 & 0 \\
+DDF EDFS\_a                     & 0 & 9 & 10 & 22 & 10 & 0 \\
+DDF EDFS\_b                     & 0 & 7 & 8 & 24 & 10 & 0 \\
+DDF ELAISS1                     & 13 & 53 & 51 & 123 & 64 & 0 \\
+ELAIS\_S1                       & 0 & 0 & 0 & 29 & 34 & 29 \\
+M49                             & 41 & 235 & 361 & 209 & 0 & 0 \\
+New\_Horizons                   & 21 & 47 & 70 & 77 & 52 & 23 \\
+Prawn                           & 133 & 148 & 132 & 93 & 27 & 0 \\
+Rubin\_SV\_212\_-7              & 0 & 112 & 217 & 123 & 0 & 0 \\
+Rubin\_SV\_216\_-17             & 0 & 28 & 30 & 63 & 0 & 0 \\
+Rubin\_SV\_225\_-40             & 159 & 324 & 265 & 328 & 207 & 100 \\
+Rubin\_SV\_280\_-48             & 1 & 27 & 27 & 30 & 27 & 0 \\
+Rubin\_SV\_300\_-41             & 0 & 1 & 0 & 0 & 20 & 0 \\
+Rubin\_SV\_320\_-15             & 0 & 2 & 3 & 101 & 48 & 70 \\
+ToO\_3I\_i0                     & 0 & 8 & 14 & 13 & 7 & 0 \\
+ToO\_BBH\_i0                    & 9 & 0 & 18 & 16 & 0 & 0 \\
+ToO\_SSO\_i0                    & 0 & 16 & 16 & 16 & 12 & 16 \\
+Trifid--Lagoon                  & 232 & 191 & 122 & 115 & 0 & 0 \\
+nes                             & 1 & 26 & 144 & 128 & 180 & 33 \\
+\hline
+\textit{Insufficient visits to coadd} & & & & & & \\
+\hline
+Abell\_2764                     & 0 & 7 & 0 & 0 & 0 & 0 \\
+DESI\_SV3\_R1                   & 0 & 0 & 0 & 3 & 0 & 0 \\
+\hline
+\end{tabularx}
 \end{table}
 
 \subsection{Data taken after Oct 2025}
